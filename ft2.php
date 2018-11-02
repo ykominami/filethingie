@@ -644,20 +644,32 @@ function ft_do_action() {
  *
  * @return Size in bytes.
  */
-function ft_get_bytes($val) {
-	$val = trim($val);
-	$last = strtolower($val{strlen($val)-1});
-	switch($last) {
-		// The 'G' modifier is available since PHP 5.1.0
-		case 'g':
-			$val *= 1024;
-		case 'm':
-			$val *= 1024;
-		case 'k':
-			$val *= 1024;
-	}
-	return $val;
-}
+/**
+ * rewrite above function. (by ykominami)
+ * from https://stackoverflow.com/questions/6846445/get-byte-value-from-shorthand-byte-notation-in-php-ini
+ */
+function ft_get_bytes($value) {
+    // Value must be a string.
+    if (!is_string($value)) {
+        return false;
+    }
+
+    preg_match('/^(?<value>\d+)(?<option>[K|M|G]*)$/i', $value, $matches);
+
+    $value = (int) $matches['value'];
+    $option = strtoupper($matches['option']);
+
+    if ($option) {
+        if ($option === 'K') {
+            $value *= 1024;
+        } elseif ($option === 'M') {
+            $value *= 1024 * 1024;
+        } elseif ($option === 'G') {
+            $value *= 1024 * 1024 * 1024;
+        }
+    }
+
+    return $value;}
 
 /**
  * Get the total disk space consumed by files available to the current user.
