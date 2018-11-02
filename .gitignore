@@ -2,3 +2,4 @@ config.php
 data/*
 .svn
 tinymce/
+memo.txt
