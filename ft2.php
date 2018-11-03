@@ -1287,13 +1287,13 @@ function ft_make_scripts() {
   global $ft;
   $scripts = array();
   if (INSTALL != "SIMPLE") {
-    $scripts[] = 'jquery-1.2.1.pack.js';
-    $scripts[] = 'filethingie.js';
+    $scripts[] = 'js/jquery-1.2.1.pack.js';
+    $scripts[] = 'js/filethingie.js';
   }
   $result = ft_invoke_hook('add_js_file');
   $scripts = array_merge($scripts, $result);
   foreach ($scripts as $c) {
-    echo "<script type='text/javascript' charset='utf-8' src='js/{$c}'></script>\r\n";
+    echo "<script type='text/javascript' charset='utf-8' src='{$c}'></script>\r\n";
   }
 }
 
